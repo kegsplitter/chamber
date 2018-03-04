@@ -13,7 +13,6 @@ function initWebSocketSession(socket, message){
 	socketHash[payload.id] = socket;
 }
 
-
 function createEventHandling(){
 	socketServer.on('connection', function(socket){console.log('websocket Connection');
 		socket.on('message', function(message){
@@ -22,8 +21,10 @@ function createEventHandling(){
 				message = JSON.parse(message);
 			} catch(e){
 				console.log(e);
+				return;
 			}
 			
+			// to set up the person id
 			if(message.route === 'initWebSocketSession') return initWebSocketSession(socket, message);
 
 		});
@@ -42,7 +43,6 @@ function setup(port){
 
 	createEventHandling();	
 }
-
 
 module.exports = {
 	setup: setup
