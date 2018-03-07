@@ -13,6 +13,10 @@ function initWebSocketSession(socket, message){
 	socketHash[payload.id] = socket;
 }
 
+function chatAll(message){
+  console.log('chatAll message', message);
+}
+
 function createEventHandling(){
 	socketServer.on('connection', function(socket){console.log('websocket Connection');
 		socket.on('message', function(message){
@@ -25,7 +29,8 @@ function createEventHandling(){
 			}
 			
 			// to set up the person id
-			if(message.route === 'initWebSocketSession') return initWebSocketSession(socket, message);
+      if(message.route === 'initWebSocketSession') return initWebSocketSession(socket, message);
+      if(message.route === 'chat-all') return chatAll(message);
 
 		});
 		socket.on('error', (error)=> console.log('Socket error', error));
