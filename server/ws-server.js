@@ -13,8 +13,22 @@ function initWebSocketSession(socket, message){
 	socketHash[payload.id] = socket;
 }
 
+function cleanToken(message){
+  let payload = Session.getPayload(message.token);
+
+  message = Object.assign({}, message, {sourceId: payload.id});
+  delete message.token;
+
+  return message;
+}
+
 function chatAll(message){
-  console.log('chatAll message', message);
+  
+  message = cleanToken(message);
+
+  message = JSON.stringify(message);
+
+  Object.keys(socketHash).map(key => socketHash[key]).forEach(socket => socket.send(message));
 }
 
 function createEventHandling(){
