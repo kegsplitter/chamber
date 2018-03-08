@@ -1,3 +1,4 @@
+import './sass/main.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Setup from './client-setup.js';
@@ -11,7 +12,7 @@ let setupPromise = Setup.setup().then(token => console.log(token));
 // for now just setup chamber
 function mainLayout(){
 	return(
-		<div>
+		<div class='main-wrapper'>
 			<Chamber></Chamber>
 		</div>	
 	);
